@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Invoice Generator</h1>
+        
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <input type="text" id="companyName" placeholder="Your Company Name">
+            <input type="text" id="clientName" placeholder="Client Name">
+            <input type="text" id="invoiceNumber" placeholder="Invoice Number">
+            <input type="date" id="invoiceDate">
+        </div>
+
+        <!-- Invoice Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="invoiceTable">
+                <tr>
+                    <td><input type="text" class="desc"></td>
+                    <td><input type="number" class="qty" value="1"></td>
+                    <td><input type="number" class="price" value="0"></td>
+                    <td class="total">0.00</td>
+                    <td><button class="remove">X</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button id="addItem">Add Item</button>
+        <h3>Total: <span id="grandTotal">0.00</span></h3>
+        <button id="downloadPDF">Download PDF</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
