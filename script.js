@@ -52,3 +52,74 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial calculation
     calculateTotal();
 });
+
+
+
+document.getElementById("downloadPDF").addEventListener("click", () => {
+    const invoice = document.querySelector(".container");
+    html2pdf().from(invoice).save("Invoice.pdf");
+});
+
+
+row.querySelector(".remove").addEventListener("click", () => {
+    row.style.opacity = "0";
+    setTimeout(() => {
+        row.remove();
+        calculateTotal();
+    }, 300); // Delay for smooth effect
+});
+
+
+
+// Save invoice to localStorage
+function saveInvoice() {
+    const invoiceData = {
+        company: document.getElementById("companyName").value,
+        client: document.getElementById("clientName").value,
+        invoiceNumber: document.getElementById("invoiceNumber").value,
+        invoiceDate: document.getElementById("invoiceDate").value,
+        items: []
+    };
+
+    document.querySelectorAll("#invoiceTable tr").forEach(row => {
+        invoiceData.items.push({
+            description: row.querySelector(".desc").value,
+            quantity: row.querySelector(".qty").value,
+            price: row.querySelector(".price").value
+        });
+    });
+
+    localStorage.setItem("invoiceData", JSON.stringify(invoiceData));
+}
+
+// Load invoice from localStorage
+function loadInvoice() {
+    const savedInvoice = localStorage.getItem("invoiceData");
+    if (savedInvoice) {
+        const data = JSON.parse(savedInvoice);
+        document.getElementById("companyName").value = data.company;
+        document.getElementById("clientName").value = data.client;
+        document.getElementById("invoiceNumber").value = data.invoiceNumber;
+        document.getElementById("invoiceDate").value = data.invoiceDate;
+
+        data.items.forEach(item => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td><input type="text" class="desc" value="${item.description}"></td>
+                <td><input type="number" class="qty" value="${item.quantity}"></td>
+                <td><input type="number" class="price" value="${item.price}"></td>
+                <td class="total">0.00</td>
+                <td><button class="remove">X</button></td>
+            `;
+            document.getElementById("invoiceTable").appendChild(row);
+        });
+
+        calculateTotal();
+    }
+}
+
+// Save invoice on input change
+document.addEventListener("input", saveInvoice);
+
+// Load invoice on page load
+document.addEventListener("DOMContentLoaded", loadInvoice);
