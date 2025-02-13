@@ -1,4 +1,4 @@
-/* Global Styles */
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #f9f9f9;
@@ -38,34 +38,68 @@ button:hover {
     background: #0056b3;
 }
 
-/* Invoice Table */
-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
+/* Responsive Table for Small Screens */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+    
+table input {
+    width: 80px;
+    padding: 6px;
+    font-size: 14px;
     text-align: center;
 }
 
-th {
-    background: #007bff;
-    color: white;
+@media (max-width: 768px) {
+    table input {
+        width: 50%;
+    }
+}
+    
+    thead {
+        display: none;
+    }
+    
+    tr {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        border: none;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .remove {
+        width: 100%;
+        text-align: center;
+        background: red;
+        padding: 5px;
+        margin-top: 5px;
+    }
 }
 
-.remove {
-    background: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+input {
+    transition: all 0.3s ease-in-out;
 }
 
-.remove:hover {
-    background: darkred;
+input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Dark Mode */
@@ -96,4 +130,4 @@ th {
     table, th, td {
         font-size: 14px;
     }
-}
+        }
